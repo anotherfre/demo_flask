@@ -8,5 +8,9 @@ def index():
     return render_template('index.html')
 
 
+@admin.route('/pic')
+def pic():
+    return json.dumps({'ret': 0, 'status': 'success', 'msg': '图片'})
+
 
 

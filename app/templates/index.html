@@ -6,33 +6,69 @@
     <link rel="stylesheet" href="../static/layui/css/layui.css">
 </head>
 <body>
-    <center>
+<center>
     <ul class="layui-nav" lay-filter="">
-        <li class="layui-nav-item"><a href="#" id="pic">导航1</a></li>
-        <li class="layui-nav-item"><a href="#">导航2</a></li>
-        <li class="layui-nav-item"><a href="#">导航3</a></li>
+        <li class="layui-nav-item"><a href="#" id="pic">试试这个</a></li>
+        <li class="layui-nav-item"><a href="#" id="book">还有这个</a></li>
+        <li class="layui-nav-item"><a href="#" id="music">这个</a></li>
     </ul>
-    </center>
-    <button class="layui-btn">button</button>
-    <button class="layui-btn" href="https://www.baidu.com">Baidu</button>
+</center>
+<div class="layui-container">
+    <div class="layui-row layui-col-space30" style="margin-top: 10px">
+        <div class="layui-col-md9 layui-bg-black">
+            张小洁同学
+            <i class="layui-icon layui-icon-face-smile"></i>
+        </div>
+        <div class="layui-col-md3 layui-bg-orange">
+            Hello！！！
+        </div>
+    </div>
+</div>
+
+{#<button class="layui-btn">button</button>#}
+{#<button class="layui-btn" href="https://www.baidu.com">Baidu</button>#}
 
 
-    <script src="../static/layui/layui.all.js"></script>
-    <script>
-        let $ = layui.jquery;
+<script src="../static/layui/layui.all.js"></script>
+<script>
+    let $ = layui.jquery;
 
-        $('#pic').click(function () {
-            {#layer.msg('click');#}
-            $.ajax({
-                type: 'get',
-                url: '/pic',
-                success:function (result) {
-                    console.log(result);
-                    result = JSON.parse(result);
-                    layer.msg(result.msg)
-                }
-            })
+    $('#pic').click(function () {
+        {#layer.msg('click');#}
+        $.ajax({
+            type: 'get',
+            url: '/pic',
+            success: function (result) {
+                console.log(result);
+                result = JSON.parse(result);
+                layer.msg(result.msg)
+            }
         })
-    </script>
+    })
+        $('#music').click(function () {
+        {#layer.msg('click');#}
+        $.ajax({
+            type: 'get',
+            url: '/music',
+            success: function (result) {
+                console.log(result);
+                result = JSON.parse(result);
+                layer.msg(result.msg)
+            }
+        })
+    })
+        $('#book').click(function () {
+        {#layer.msg('click');#}
+        $.ajax({
+            type: 'get',
+            url: '/book',
+            success: function (result) {
+                console.log(result);
+                result = JSON.parse(result);
+                layer.msg(result.msg)
+            }
+        })
+    })
+</script>
 </body>
 </html>

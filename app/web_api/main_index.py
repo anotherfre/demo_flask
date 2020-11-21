@@ -10,7 +10,17 @@ def index():
 
 @admin.route('/pic')
 def pic():
-    return json.dumps({'ret': 0, 'status': 'success', 'msg': '图片'})
+    return json.dumps({'ret': 0, 'status': 'success', 'msg': '晚上好'})
+
+
+@admin.route('/music')
+def music():
+    return json.dumps({'ret': 0, 'status': 'success', 'msg': '早上好'})
+
+
+@admin.route('/book')
+def book():
+    return json.dumps({'ret': 0, 'status': 'success', 'msg': '中午好'})
 
 
 

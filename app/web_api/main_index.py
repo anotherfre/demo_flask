@@ -10,16 +10,19 @@ def index():
 
 @admin.route('/pic')
 def pic():
+    print(request.remote_addr)
     return json.dumps({'ret': 0, 'status': 'success', 'msg': '晚上好'})
 
 
 @admin.route('/music')
 def music():
+    print(request.remote_addr)
     return json.dumps({'ret': 0, 'status': 'success', 'msg': '早上好'})
 
 
 @admin.route('/book')
 def book():
+    print(request.remote_addr)
     return json.dumps({'ret': 0, 'status': 'success', 'msg': '中午好'})
 
 

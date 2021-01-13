@@ -1,5 +1,26 @@
 
-
-#show_cont{
+#show_cont {
     margin-top: 10px;
 }
+
+div {
+    border-radius: 10px;
+}
+
+#publish_info {
+    padding: 10px;
+    border: 0;
+
+}
+
+
+#input_cont {
+    margin-bottom: 10px;
+}
+
+#input_textarea {
+    border: 0;
+    border-radius: 5px;
+    resize: none;
+}
+

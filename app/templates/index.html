@@ -25,12 +25,15 @@
 
         <!--用户发布信息-->
         <div class="layui-row">
-            <div id="publish_info" class="layui-col-lg-offset4">
-                <textarea name="" id="" class="layui-textarea" placeholder="请输入..."></textarea>
+            <div id="publish_info" class="layui-col-lg-offset4 layui-bg-gray">
+                <div id="input_cont">
+                    <textarea class="layui-textarea" id="input_textarea" placeholder="请输入..."></textarea>
+                </div>
 
                 <div class="layui-row">
                     <div>
                         <button class="layui-btn">发布</button>
+                        <button class="layui-btn">重置</button>
                     </div>
                 </div>
             </div>
@@ -47,8 +50,24 @@
 
     <!--  用户栏  -->
     <div class="layui-col-md4">
-        <div id="user_cont">user info</div>
-        <div class="layui-btn layui-btn" id="btn_refresh">BUTTON</div>
+        <div id="user_cont" class="layui-bg-gray layui-col-md6 layui-col-lg-offset1">
+            <div class="layui-col-lg-offset1">
+                <div>user info</div>
+                <div>
+                    <button class="layui-btn">主页</button>
+                </div>
+                <div>
+                    <button class="layui-btn">收藏</button>
+                </div>
+                <div>
+                    <button class="layui-btn">退出</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!--刷新内容按钮-->
+        <div class="layui-btn layui-btn" id="btn_refresh">刷新</div>
     </div>
 </div>
 

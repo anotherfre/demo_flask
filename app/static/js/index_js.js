@@ -11,13 +11,13 @@ function createTag() {
     let content = $("#show_cont");
     getContent().then(cont => {
         let goodDiv = `<div style=" width: 33%;display: inline-block">
-        <button id="good" class="layui-btn" style="width: 100%">btnGood</button>
+        <button id="good" class="layui-btn" style="width: 100%"><i class="layui-icon">&#xe68c;</i>点赞</button>
     </div>`;
         let talkDiv = `<div style=" width: 33%;display: inline-block">
-        <button id="btn_talk" class="layui-btn" style="width: 100%">btnTalk</button>
+        <button id="btn_talk" class="layui-btn" style="width: 100%"><i class="layui-icon">&#xe611;</i>评论</button>
     </div>`;
         let collDiv = `<div style="width: 34%; display: inline-block">
-        <button id="btn_coll" class="layui-btn" style="width: 100%" >btnColl</button>
+        <button id="btn_coll" class="layui-btn" style="width: 100%" ><i class="layui-icon">&#xe627;</i>收藏</button>
     </div>`;
         let actionDiv = `<div style="position: absolute; bottom: 0px;width: 100%">${goodDiv}${talkDiv}${collDiv}</div>`;
         let div = `<div class="layui-anim layui-anim-up layui-bg-gray" style="height: 400px;" id="show_cont">${cont}${actionDiv}</div>`;

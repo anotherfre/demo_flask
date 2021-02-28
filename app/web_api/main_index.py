@@ -21,6 +21,7 @@ def music():
 
 @admin.route('/book')
 def book():
+    print()
     print(request.remote_addr)
     return json.dumps({'ret': 0, 'status': 'success', 'msg': '中午好'})
 

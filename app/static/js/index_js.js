@@ -7,6 +7,17 @@ $("#btn_refresh").click(function () {
     createTag()
 });
 
+$('#index').click(function () {
+    $.ajax({
+        method: 'GET',
+        url: '/pic',
+        success: function (data) {
+            data = JSON.parse(data);
+            layer.msg(data.msg)
+        }
+    })
+})
+
 function createTag() {
     let content = $("#show_cont");
     getContent().then(cont => {

@@ -16,7 +16,7 @@ $('#index').click(function () {
             layer.msg(data.msg)
         }
     })
-})
+});
 
 function createTag() {
     let content = $("#show_cont");
@@ -62,3 +62,18 @@ function getContent() {
     });
 
 }
+
+
+$('#publish').click(function () {
+    var content = $('#input_textarea').val();
+    $.ajax({
+        url: '/publish',
+        dataType: 'JSON',
+        data: content,
+        method: 'POST',
+        success:function (resp) {
+            data = JSON.parse(resp);
+            layer.msg(resp.msg, {time: 1000})
+        }
+    })
+});

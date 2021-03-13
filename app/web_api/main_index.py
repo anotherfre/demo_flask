@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from app.web_api import *
 import random
+from app.web_api.gua_data import *
 
 
 @admin.route('/')
@@ -8,11 +9,9 @@ def index():
     return render_template('index.html')
 
 
-@admin.route('/pic')
+@admin.route('/pic', methods=['GET'])
 def pic():
     try:
-        #print(request.args)
-        #print(request.form)
         signature = request.args.get("signature")
         timestamp = request.args.get("timestamp")
         nonce = request.args.get("nonce")
@@ -21,27 +20,31 @@ def pic():
         sortlist = [token, timestamp, nonce]
         sortlist.sort()
         token = get_str_sha1_secret_str("".join(sortlist))
-        #print(token)
+
+        if token == signature:
+            return 'True'
+        else:
+            return "False"
+    except:
+        print(traceback.format_exc())
+
+
+@admin.route('/pic', methods=['POST'])
+def pic_post():
+    try:
         openid = request.args.get("openid", '')
         rand_word = random.choice(list(baguaguaxiang.values()))
         return_content = '''<xml>
-                      <ToUserName><![CDATA[%s]]></ToUserName>
-                      <FromUserName><![CDATA[%s]]></FromUserName>
-                      <CreateTime>12345678</CreateTime>
-                      <MsgType><![CDATA[text]]></MsgType>
-                      <Content><![CDATA[%s]]></Content>
-                </xml>'''% (openid, 'gh_93df1f1728b5', rand_word)
+                              <ToUserName><![CDATA[%s]]></ToUserName>
+                              <FromUserName><![CDATA[%s]]></FromUserName>
+                              <CreateTime>12345678</CreateTime>
+                              <MsgType><![CDATA[text]]></MsgType>
+                              <Content><![CDATA[%s]]></Content>
+                        </xml>''' % (openid, 'gh_93df1f1728b5', rand_word)
         print("openid:", openid)
-        if token == signature:
-           # print('------------校验成功---------------')
-            return return_content
-        else:
-            #print ('------------校验失败---------------')
-            return "False"
+        return return_content
     except:
-       # print ('------------校验异常---------------')
         print(traceback.format_exc())
-
 
 
 

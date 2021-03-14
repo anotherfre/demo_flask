@@ -2,6 +2,7 @@
 from app.web_api import *
 import random
 from app.web_api.gua_data import *
+import xmltodict
 
 
 def get_str_sha1_secret_str(res):
@@ -47,16 +48,26 @@ def pic_post():
         rand_xiang = baguaguaxiang[rand_num]
         liu_yao = 'i_' + gua_yao[rand_num[0]] + gua_yao[rand_num[1]]
         xiang_ci = solution_dict[liu_yao]
-        user_cont = request.data
-        print(user_cont)
-
-        return_content = '''<xml>
-                              <ToUserName><![CDATA[%s]]></ToUserName>
-                              <FromUserName><![CDATA[%s]]></FromUserName>
-                              <CreateTime>12345678</CreateTime>
-                              <MsgType><![CDATA[text]]></MsgType>
-                              <Content><![CDATA[%s]]></Content>
-                        </xml>''' % (openid, 'gh_93df1f1728b5', str(re.split('传统解卦', xiang_ci)[0]))
+        data = request.data
+        if data:
+            data = xmltodict.parse(request.data)['xml']
+        else:
+            data = ''
+        content = data.get('Content')
+        if content == '积水':
+            return_content = ''' 嘿！ 积水！！！'''
+        elif content == '卦':
+            return_content = '''<xml>
+                                  <ToUserName><![CDATA[%s]]></ToUserName>
+                                  <FromUserName><![CDATA[%s]]></FromUserName>
+                                  <CreateTime>12345678</CreateTime>
+                                  <MsgType><![CDATA[text]]></MsgType>
+                                  <Content><![CDATA[%s]]></Content>
+                            </xml>''' % (openid, 'gh_93df1f1728b5', str(re.split('传统解卦', xiang_ci)[0]))
+        elif content == '。':
+            return_content = '''wubalubadubdub'''
+        else:
+            return_content = '''I am Mr.meeseeks!!!'''
         return return_content
     except:
         print(traceback.format_exc())

@@ -45,7 +45,7 @@ def pic_post():
                               <CreateTime>12345678</CreateTime>
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[%s]]></Content>
-                        </xml>''' % (openid, 'gh_93df1f1728b5', str(xiang_ci))
+                        </xml>''' % (openid, 'gh_93df1f1728b5', str(re.split('传统解卦', xiang_ci)[0]))
         print("openid:", openid)
         return return_content
     except:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import re
 from flask import Blueprint, render_template, request
 import json
 import pymysql

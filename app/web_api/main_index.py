@@ -46,6 +46,7 @@ def pic_post():
                               <Content><![CDATA[%s]]></Content>
                         </xml>''' % (openid, 'gh_93df1f1728b5', xiang_ci)
         print("openid:", openid)
+        print(return_content)
         return return_content
     except:
         print(traceback.format_exc())

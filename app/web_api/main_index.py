@@ -37,6 +37,8 @@ def pic_post():
         rand_xiang = baguaguaxiang[rand_num]
         liu_yao = 'i_' + gua_yao[rand_num[0]] + gua_yao[rand_num[1]]
         xiang_ci = solution_dict[liu_yao]
+        user_cont = request.data
+        print(user_cont)
 
         return_content = '''<xml>
                               <ToUserName><![CDATA[%s]]></ToUserName>

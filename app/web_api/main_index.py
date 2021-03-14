@@ -4,6 +4,16 @@ import random
 from app.web_api.gua_data import *
 
 
+def get_str_sha1_secret_str(res):
+    import hashlib
+    """
+    使用sha1加密算法，返回str加密后的字符串
+    """
+    sha = hashlib.sha1(res.encode('utf-8'))
+    encrypts = sha.hexdigest()
+    return encrypts
+
+
 @admin.route('/')
 def index():
     return render_template('index.html')

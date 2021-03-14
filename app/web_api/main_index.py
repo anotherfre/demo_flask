@@ -44,7 +44,7 @@ def pic_post():
                               <CreateTime>12345678</CreateTime>
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[%s]]></Content>
-                        </xml>''' % (openid, 'gh_93df1f1728b5', xiang_ci)
+                        </xml>''' % (openid, 'gh_93df1f1728b5', rand_xiang)
         print("openid:", openid)
         print(return_content)
         return return_content

@@ -32,6 +32,7 @@ def pic():
 @admin.route('/pic', methods=['POST'])
 def pic_post():
     try:
+        print("request:", request)
         openid = request.args.get("openid", '')
         rand_num = random.choice(list(baguaguaxiang))
         rand_xiang = baguaguaxiang[rand_num]
@@ -44,9 +45,8 @@ def pic_post():
                               <CreateTime>12345678</CreateTime>
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[%s]]></Content>
-                        </xml>''' % (openid, 'gh_93df1f1728b5', rand_xiang)
+                        </xml>''' % (openid, 'gh_93df1f1728b5', str(xiang_ci))
         print("openid:", openid)
-        print(return_content)
         return return_content
     except:
         print(traceback.format_exc())

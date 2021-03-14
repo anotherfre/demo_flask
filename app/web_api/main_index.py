@@ -49,13 +49,20 @@ def pic_post():
         liu_yao = 'i_' + gua_yao[rand_num[0]] + gua_yao[rand_num[1]]
         xiang_ci = solution_dict[liu_yao]
         data = request.data
+        return_content = '''<xml>
+                                          <ToUserName><![CDATA[%s]]></ToUserName>
+                                          <FromUserName><![CDATA[gh_93df1f1728b5]]></FromUserName>
+                                          <CreateTime>12345678</CreateTime>
+                                          <MsgType><![CDATA[text]]></MsgType>
+                                          <Content><![CDATA[%s]]></Content>
+                                    </xml>'''
         if data:
             data = xmltodict.parse(request.data)['xml']
         else:
             data = ''
         content = data.get('Content')
         if content == '积水':
-            return_content = ''' 嘿！ 积水！！！'''
+            return_content = return_content % (openid, ' 嘿！ 积水！！！')
         elif content == '卦':
             return_content = '''<xml>
                                   <ToUserName><![CDATA[%s]]></ToUserName>
@@ -65,9 +72,9 @@ def pic_post():
                                   <Content><![CDATA[%s]]></Content>
                             </xml>''' % (openid, 'gh_93df1f1728b5', str(re.split('传统解卦', xiang_ci)[0]))
         elif content == '。':
-            return_content = '''wubalubadubdub'''
+            return_content = return_content % (openid, 'wubalubadubdub')
         else:
-            return_content = '''I am Mr.meeseeks!!!'''
+            return_content = return_content % (openid, 'I am Mr.meeseeks!!!')
         return return_content
     except:
         print(traceback.format_exc())

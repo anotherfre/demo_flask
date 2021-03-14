@@ -32,7 +32,6 @@ def pic():
 @admin.route('/pic', methods=['POST'])
 def pic_post():
     try:
-        print("request:", request)
         openid = request.args.get("openid", '')
         rand_num = random.choice(list(baguaguaxiang))
         rand_xiang = baguaguaxiang[rand_num]
@@ -46,11 +45,9 @@ def pic_post():
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[%s]]></Content>
                         </xml>''' % (openid, 'gh_93df1f1728b5', str(re.split('传统解卦', xiang_ci)[0]))
-        print("openid:", openid)
         return return_content
     except:
         print(traceback.format_exc())
-
 
 
 @admin.route('/music')

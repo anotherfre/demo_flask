@@ -9,8 +9,8 @@ def index():
     return render_template('index.html')
 
 
-@admin.route('/pic', methods=['GET'])
-def pic():
+@admin.route('/wei_xin', methods=['GET'])
+def wei_xin_get():
     try:
         signature = request.args.get("signature")
         timestamp = request.args.get("timestamp")
@@ -29,8 +29,8 @@ def pic():
         print(traceback.format_exc())
 
 
-@admin.route('/pic', methods=['POST'])
-def pic_post():
+@admin.route('/wei_xin', methods=['POST'])
+def wei_xin_post():
     try:
         openid = request.args.get("openid", '')
         rand_num = random.choice(list(baguaguaxiang))

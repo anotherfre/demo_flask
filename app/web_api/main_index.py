@@ -33,14 +33,18 @@ def pic():
 def pic_post():
     try:
         openid = request.args.get("openid", '')
-        rand_word = random.choice(list(baguaguaxiang.values()))
+        rand_num = random.choice(list(baguaguaxiang))
+        rand_xiang = baguaguaxiang[rand_num]
+        liu_yao = 'i_' + gua_yao[rand_num[0]] + gua_yao[rand_num[1]]
+        xiang_ci = solution_dict[liu_yao]
+
         return_content = '''<xml>
                               <ToUserName><![CDATA[%s]]></ToUserName>
                               <FromUserName><![CDATA[%s]]></FromUserName>
                               <CreateTime>12345678</CreateTime>
                               <MsgType><![CDATA[text]]></MsgType>
                               <Content><![CDATA[%s]]></Content>
-                        </xml>''' % (openid, 'gh_93df1f1728b5', rand_word)
+                        </xml>''' % (openid, 'gh_93df1f1728b5', xiang_ci)
         print("openid:", openid)
         return return_content
     except:

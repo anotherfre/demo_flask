@@ -36,6 +36,7 @@ def get_connection():
 
 
 from app.web_api import main_index
+from app.web_api import wei_xin_api
 
 
 def get_str_sha1_secret_str(res):
@@ -46,6 +47,3 @@ def get_str_sha1_secret_str(res):
     sha = hashlib.sha1(res.encode('utf-8'))
     encrypts = sha.hexdigest()
     return encrypts
-
-
-

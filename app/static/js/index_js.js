@@ -63,17 +63,23 @@ function getContent() {
 
 }
 
+layui.use('form', function () {
+    var form = layui.form;
 
-$('#publish').click(function () {
-    var content = $('#input_textarea').val();
-    $.ajax({
-        url: '/publish',
-        dataType: 'JSON',
-        data: content,
-        method: 'POST',
-        success:function (resp) {
-            data = JSON.parse(resp);
-            layer.msg(resp.msg, {time: 1000})
-        }
+    form.on('submit(form_content)', function (data) {
+        console.log(data);
+        $.ajax({
+            url: '/publish',
+            dataType: 'JSON',
+            data: data.field,
+            method: 'POST',
+            success: function (resp) {
+                layer.msg(resp.msg, {time: 1000});
+                if(resp.ret === 0){
+                    createTag();
+                }
+            }
+        });
+        return false;
     })
 });

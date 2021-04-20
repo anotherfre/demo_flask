@@ -14,16 +14,17 @@ def get_cont():
         return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
     try:
         with conn.cursor() as cursor:
-            # sql = ''' select content from user_contents where del_flag=0 order by rand() limit 1'''
-            sql = ''' select content from user_contents where del_flag=0 order by create_time desc limit 1'''
+            sql = ''' select content from user_contents where del_flag=0 order by create_time desc limit 10'''
             result = []
             if cursor.execute(sql):
-                result = cursor.fetchone()['content']
+                query_data = cursor.fetchall()
+
+            for query in query_data:
+                result.append({'result': query.get('content')})
             data = {
                 "ret": 0,
                 "data": result
             }
-            print(data)
             return json.dumps(data)
     except Exception as e:
         print(traceback.format_exc())
@@ -50,21 +51,3 @@ def publish():
     finally:
         conn.close()
 
-# def send_info():
-#     openid = request.args.get("openid", '')
-#     data = request.data
-#     return_content = '''<xml>
-#                           <ToUserName><![CDATA[%s]]></ToUserName>
-#                           <FromUserName><![CDATA[gh_93df1f1728b5]]></FromUserName>
-#                           <CreateTime>12345678</CreateTime>
-#                           <MsgType><![CDATA[text]]></MsgType>
-#                           <Content><![CDATA[%s]]></Content>
-#                         </xml>'''
-#     return_content = return_content % (openid, 'test')
-#
-#
-# schedule.every().day.at('16:00').do(send_info)
-#
-# while True:
-#     schedule.run_pending()
-# time.sleep(1)

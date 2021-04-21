@@ -7,17 +7,20 @@ def index():
     return render_template('index.html')
 
 
-@admin.route('/get_cont', methods=['GET', 'POST'])
-def get_cont():
+@admin.route('/get_cont/<page>', methods=['GET', 'POST'])
+def get_cont(page):
     conn = get_connection()
     if not conn:
         return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
     try:
         with conn.cursor() as cursor:
-            sql = ''' select content from user_contents where del_flag=0 order by create_time desc limit 10'''
+            sql = ''' select content from user_contents where del_flag=0 order by create_time desc'''
+            sql += ' limit {page}, {limit}'.format(page=(int(page) - 1) * 10, limit=10)
             result = []
             if cursor.execute(sql):
                 query_data = cursor.fetchall()
+            else:
+                return json.dumps({"ret": -2, "data": []})
 
             for query in query_data:
                 result.append({'result': query.get('content')})
@@ -50,4 +53,3 @@ def publish():
         return json.dumps({'ret': -3, 'status': 'failed'})
     finally:
         conn.close()
-

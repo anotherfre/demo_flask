@@ -1,10 +1,11 @@
 let $ = layui.jquery;
 $(document).ready(function () {
     createTag();
-    let page = 0;
+    let page = 1;
     $(window).scroll(function () {
         if (parseInt($(window).scrollTop()) === ($(document).height() - $(window).height())) {
             page += 1;
+            createTag(page)
         }
     });
 });
@@ -24,9 +25,9 @@ $('#index').click(function () {
     })
 });
 
-function createTag() {
+function createTag(page) {
     let content = $("#show_cont");
-    getContent().then(cont => {
+    getContent(page).then(cont => {
         for (let num in cont) {
             let goodDiv = `<div style=" width: 33%;display: inline-block">
         <button id="good" class="layui-btn" style="width: 100%"><i class="layui-icon">&#xe68c;</i>点赞</button>
@@ -47,11 +48,11 @@ function createTag() {
 
 let cont = "";
 
-function getContent() {
+function getContent(page = 1) {
     return new Promise(function (resolve, reject) {
         $.ajax({
             method: "GET",
-            url: "/get_cont",
+            url: "/get_cont/" + page,
             // async: false,
             success: function (data) {
                 let resp = JSON.parse(data);
@@ -59,8 +60,8 @@ function getContent() {
                     cont = resp.data;
                     resolve(cont)
                 } else {
-                    layer.msg("error");
-                    reject("error")
+                    layer.msg("没那么多数据啦~~~");
+                    reject("没那么多数据啦~~~")
                 }
             },
             error: function () {
@@ -73,7 +74,6 @@ function getContent() {
 
 layui.use('form', function () {
     var form = layui.form;
-
     form.on('submit(form_content)', function (data) {
         $.ajax({
             url: '/publish',
@@ -81,14 +81,17 @@ layui.use('form', function () {
             data: data.field,
             method: 'POST',
             success: function (resp) {
+                console.log(data.field);
                 layer.msg(resp.msg, {time: 1000});
                 if (resp.ret === 0) {
                     $('#input_textarea').val("");
+                    let content = $("#show_cont");
+                    content.html("");
                     createTag();
                 }
             }
         });
-        return false;
+        return false
     })
 });
 

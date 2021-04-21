@@ -14,6 +14,10 @@ $("#btn_refresh").click(function () {
     createTag()
 });
 
+$("#reload").click(function () {
+    window.location.reload();
+});
+
 $('#index').click(function () {
     $.ajax({
         method: 'GET',
@@ -39,7 +43,7 @@ function createTag(page) {
         <button id="btn_coll" class="layui-btn" style="width: 100%" ><i class="layui-icon">&#xe627;</i>收藏</button>
     </div>`;
             let actionDiv = `<div style="position: absolute; bottom: 0px;width: 100%">${goodDiv}${talkDiv}${collDiv}</div>`;
-            let div = `<div class="layui-anim layui-anim-up layui-bg-gray" style="height: 400px;display: flex;flex-direction: column;justify-content: center;align-items: center;" id="show_cont">${cont[num]['result']}${actionDiv}</div>`;
+            let div = `<div class="layui-anim layui-anim-up layui-bg-gray" style="height: 400px;display: flex;flex-direction: column;justify-content: center;align-items: center;padding-left: 50px;padding-right: 50px" id="show_cont">${cont[num]['result']}${actionDiv}</div>`;
             content.append(div);
         }
     });

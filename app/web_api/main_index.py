@@ -14,6 +14,8 @@ def get_cont(page):
         return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
     try:
         with conn.cursor() as cursor:
+            if int(page) > 10:
+                return json.dumps({"ret": -2, "data": []})
             sql = ''' select content from user_contents where del_flag=0 order by create_time desc'''
             sql += ' limit {page}, {limit}'.format(page=(int(page) - 1) * 10, limit=10)
             result = []

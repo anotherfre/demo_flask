@@ -71,7 +71,7 @@ def pic_post():
         elif content == '。':
             return_content = return_content % (openid, 'wubalubadubdub')
         else:
-            return_content = 'success'
+            return_content = return_content % (openid, content)
         return return_content
     except:
         print(traceback.format_exc())

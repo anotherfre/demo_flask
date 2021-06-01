@@ -99,7 +99,7 @@ def goods():
                 result.append({'id': query.get('id'),
                                'goods_name': query.get('goods_name'),
                                'goods_pic': query.get('goods_pic'),
-                               'goods_price': query.get('good_price')})
+                               'goods_price': query.get('goods_price')})
             data = {
                 "ret": 0,
                 "data": result

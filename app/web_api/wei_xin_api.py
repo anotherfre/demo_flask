@@ -3,6 +3,7 @@ from app.web_api import *
 import random
 from app.web_api.gua_data import *
 import xmltodict
+import requests
 
 
 def get_str_sha1_secret_str(res):
@@ -75,3 +76,54 @@ def pic_post():
         return return_content
     except:
         print(traceback.format_exc())
+
+
+# 微信小程序商品接口
+@admin.route('/goods', methods=['GET'])
+def goods():
+    conn = get_connection()
+    if not conn:
+        return json.dumps({'ret': -1, 'status': 'failed'})
+    try:
+        with conn.cursor() as cursor:
+            page = 1
+            sql = ''' select id, goods_name, goods_pic, goods_price from goods order by create_time desc'''
+            sql += ' limit {page}, {limit}'.format(page=(int(page) - 1) * 10, limit=10)
+            result = []
+            if cursor.execute(sql):
+                query_data = cursor.fetchall()
+            else:
+                return json.dumps({"ret": -2, "data": []})
+
+            for query in query_data:
+                result.append({'id': query.get('id'),
+                               'goods_name': query.get('goods_name'),
+                               'goods_pic': query.get('goods_pic'),
+                               'goods_price': query.get('good_price')})
+            data = {
+                "ret": 0,
+                "data": result
+            }
+            return json.dumps(data)
+
+    except Exception as e:
+        return json.dumps({'ret': -3, 'status': 'failed'})
+
+
+if __name__ == '__main__':
+    app_id = 'wx2cfa87927a21509c'
+    app_secret = 'ba904cc98a437dd7a7ada60dcd3036cd'
+    url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid={APPID}&secret={APPSECRET}'
+    resp = requests.get(url.format(APPID=app_id, APPSECRET=app_secret))
+
+    access_token = json.loads(resp.text).get('access_token')
+    create_api_url = ' https://api.weixin.qq.com/cgi-bin/menu/create?access_token={ACCESS_TOKEN}'
+    data = {
+        "button": [
+            {"type": "view",
+             "name": "今日红包",
+             "url": ""}
+        ]
+    }
+    resp = requests.post(create_api_url.format(ACCESS_TOKEN=access_token), data=data)
+    pass

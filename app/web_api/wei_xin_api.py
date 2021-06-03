@@ -110,6 +110,29 @@ def goods():
         return json.dumps({'ret': -3, 'status': 'failed'})
 
 
+# 微信用户登录信息
+@admin.route('/users', methods=['POST', 'GET'])
+def users():
+    conn = get_connection()
+    if not conn:
+        return json.dumps({'ret': -1, 'status': 'failed'})
+    try:
+        with conn.cursor() as cursor:
+            sql = """select id, user_name, user_icon from wx_users limit 1"""
+            result = []
+            if cursor.execute(sql):
+                query_data = cursor.fetchone()
+                result.append(query_data)
+
+            data = {
+                "ret": 0,
+                "data": result
+            }
+            return json.dumps(data)
+    except Exception as e:
+        return json.dumps({'ret': -3, 'status': 'failed'})
+
+
 if __name__ == '__main__':
     app_id = 'wx2cfa87927a21509c'
     app_secret = 'ba904cc98a437dd7a7ada60dcd3036cd'

@@ -72,7 +72,13 @@ def pic_post():
         elif content == '。':
             return_content = return_content % (openid, 'wubalubadubdub')
         else:
-            return_content = return_content % (openid, content)
+            url = "http://api.qingyunke.com/api.php?key=free&appid=0&msg={msg}"
+            resp = requests.get(url.format(msg=content))
+            answer = "学吧，太深奥了。"
+            if resp.status_code == 200:
+                decode_resp = json.loads(resp.text)
+                answer = decode_resp.get('content')
+            return_content = return_content % (openid, answer)
         return return_content
     except:
         print(traceback.format_exc())

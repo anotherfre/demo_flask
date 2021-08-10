@@ -4,7 +4,21 @@ from app.web_api import *
 
 @admin.route('/')
 def index():
-    return render_template('index.html')
+    # return render_template('new_index.html')
+    conn = get_connection()
+    if not conn:
+        return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
+    try:
+        with conn.cursor() as cursor:
+            sql = """select content from user_contents where del_flag=0 ORDER BY RAND() limit 1"""
+            content = ""
+            if cursor.execute(sql):
+                query_data = cursor.fetchone()
+                content = query_data.get('content')
+            return render_template('new_index.html', content=content)
+    except Exception as e:
+        print(traceback.format_exc())
+        return render_template('new_index.html')
 
 
 @admin.route('/get_cont/<page>', methods=['GET', 'POST'])

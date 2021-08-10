@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Word</title>
+    <style>
+
+        #content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e3fdfd;
+            margin: 150px 300px 50px;
+            padding: 100px;
+            border-radius: 15px;
+            font-size: 40px;
+            line-height: 50px;
+            letter-spacing: 5px;
+            color: #4E5465;
+        }
+
+        #refresh {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            background: #dbe2ef;
+            border: none;
+            color: #393e46;
+            padding: 10px;
+            text-align: center;
+            display: inline-block;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div id="content">{{ content }}</div>
+    <div id="refresh">
+        <button onclick="Refresh()">Refresh</button>
+    </div>
+</div>
+</body>
+<script>
+    function Refresh() {
+        location.reload();
+    }
+</script>
+</html>

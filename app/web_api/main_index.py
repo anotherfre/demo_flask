@@ -4,45 +4,23 @@ from app.web_api import *
 
 @admin.route('/')
 def index():
-    # return render_template('new_index.html')
+    return render_template('new_index.html')
+
+
+@admin.route('/get_cont', methods=['GET', 'POST'])
+def get_cont():
     conn = get_connection()
     if not conn:
         return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
     try:
         with conn.cursor() as cursor:
             sql = """select content from user_contents where del_flag=0 ORDER BY RAND() limit 1"""
-            content = ""
             if cursor.execute(sql):
                 query_data = cursor.fetchone()
-                content = query_data.get('content')
-            return render_template('new_index.html', content=content)
-    except Exception as e:
-        print(traceback.format_exc())
-        return render_template('new_index.html')
-
-
-@admin.route('/get_cont/<page>', methods=['GET', 'POST'])
-def get_cont(page):
-    conn = get_connection()
-    if not conn:
-        return json.dumps({'ret': -1, 'msg': '数据库连接失败'})
-    try:
-        with conn.cursor() as cursor:
-            # if int(page) > 10:
-            #     return json.dumps({"ret": -2, "data": []})
-            sql = ''' select content from user_contents where del_flag=0 order by create_time desc'''
-            sql += ' limit {page}, {limit}'.format(page=(int(page) - 1) * 10, limit=10)
-            result = []
-            if cursor.execute(sql):
-                query_data = cursor.fetchall()
-            else:
-                return json.dumps({"ret": -2, "data": []})
-
-            for query in query_data:
-                result.append({'result': query.get('content')})
+                content = query_data.get('content', '')
             data = {
                 "ret": 0,
-                "data": result
+                "data": content
             }
             return json.dumps(data)
     except Exception as e:

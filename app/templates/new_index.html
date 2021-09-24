@@ -2,22 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Word</title>
+    <title>World</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
         #content {
             display: flex;
             justify-content: center;
             align-items: center;
             background: #e3fdfd;
-            margin: 150px 300px 50px;
-            padding: 100px;
+            margin: 50px 200px 50px;
+            padding: 50px;
             border-radius: 15px;
-            font-size: 40px;
+            font-size: 30px;
             line-height: 50px;
             letter-spacing: 5px;
             color: #4E5465;
         }
+
+        .wobble-hor-bottom {
+            animation: text-focus-in 0.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+        }
+
+        @keyframes text-focus-in {
+            0% {
+                -webkit-filter: blur(12px);
+                filter: blur(12px);
+                opacity: 0;
+            }
+            100% {
+                -webkit-filter: blur(0px);
+                filter: blur(0px);
+                opacity: 1;
+            }
+        }
+
 
         #refresh {
             display: flex;
@@ -28,25 +50,72 @@
             background: #dbe2ef;
             border: none;
             color: #393e46;
-            padding: 10px;
+            width: 100px;
+            height: 10px;
             text-align: center;
             display: inline-block;
             text-decoration: none;
         }
+
+
+        .banner {
+            background: #0C0C0C;
+            height: 200px;
+            color: white;
+            font-size: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
     </style>
 </head>
 <body>
+
+<div class="banner">
+    <div>ENJOY WORD</div>
+</div>
+
+<div id="refresh">
+    <button onclick="getContent()"></button>
+</div>
+
 <div class="container">
 
-    <div id="content">{{ content }}</div>
-    <div id="refresh">
-        <button onclick="Refresh()">Refresh</button>
-    </div>
+    <div id="content" class="wobble-hor-bottom"></div>
+
 </div>
 </body>
+<script src="../static/layui/layui.all.js"></script>
 <script>
-    function Refresh() {
-        location.reload();
+
+
+    let $ = layui.jquery;
+
+    function getContent() {
+        $.ajax({
+            method: 'GET',
+            url: '/get_cont',
+            dataType: 'JSON',
+            success: function (data) {
+                {#console.log(data);#}
+
+                let old_div = $('#content');
+                old_div.remove();
+                let new_div = `<div id="content" class="wobble-hor-bottom">${data.data}</div>`;
+                let container = $('.container');
+                container.append(new_div)
+            }
+        })
     }
+
+    getContent();
+
+    $(document).keydown(function (event) {
+        if (event.keyCode == "32") {
+
+            getContent();
+        }
+    })
 </script>
 </html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Message</title>
+    <style>
+        div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 10px;
+
+        }
+    </style>
+</head>
+<body>
+<form>
+    <div>
+        消息：<input type="text" id="content">
+    </div>
+    <div>
+        邮箱：<input type="text" id="email">
+    </div>
+    <div>
+        <button id="submit" onclick="send_message()" type="button">提交</button>
+    </div>
+
+
+</form>
+<script src="../static/layui/layui.all.js"></script>
+<script>
+    let $ = layui.jquery;
+    let send_message = () => {
+        let content = $('#content').val();
+        let email = $('#email').val();
+        console.log(content, email);
+        $.ajax({
+            url:'/message_msg?type=send',
+            method:'POST',
+            dataType:'JSON',
+            data:{content:content, email:email},
+            success:function (data) {
+                console.log('success')
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

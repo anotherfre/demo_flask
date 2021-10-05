@@ -39,6 +39,7 @@ def get_connection():
 
 from app.web_api import main_index
 from app.web_api import wei_xin_api
+from app.web_api import celery_task
 
 
 def get_str_sha1_secret_str(res):

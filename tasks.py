@@ -1,10 +1,11 @@
 import time
 from celery import Celery
 
-brokers = 'redis://192.168.11.128:6379/0'
-backend = 'redis://192.168.11.128:6379/1'
+brokers = 'redis://192.168.11.128:6379/10'
+backend = 'redis://192.168.11.128:6379/14'
 
-app = Celery('tasks', broker=brokers, backend=backend)
+app = Celery('proj', broker=brokers, backend=backend)
+# app.config_from_object('celery_config')
 
 
 @app.task

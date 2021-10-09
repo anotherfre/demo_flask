@@ -29,7 +29,7 @@ class Message_msg:
 
 @admin.route('/message_msg', methods=['GET', 'POST'])
 def message_msg():
-    rds = redis.Redis(host='192.168.11.128', port=6379)
+    rds = redis.Redis(host='192.168.31.196', port=6379)
     try:
         if request.args.get('type'):
             _message = Message_msg(request, rds)

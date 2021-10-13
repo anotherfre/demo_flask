@@ -7,6 +7,28 @@ def index():
     return render_template('new_index.html')
 
 
+@admin.before_app_request
+def before_request():
+    print('before_request')
+
+
+@admin.after_request
+def after_request(response):
+    print('after_request')
+    return response
+
+
+# @admin.teardown_request
+# def teardown_request(response):
+#     print('teardown_request')
+#     return response
+#
+#
+# @admin.before_first_request
+# def handle_first_request():
+#     print('first_request')
+
+
 @admin.route('/get_cont', methods=['GET', 'POST'])
 def get_cont():
     conn = get_connection()

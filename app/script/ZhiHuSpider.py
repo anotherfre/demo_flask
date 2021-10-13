@@ -17,7 +17,7 @@ class ZhiHuSpider:
                             }
         self.original_url = original_url
         self.conn = pymysql.connect(
-            host='192.168.31.196',
+            host='192.168.76.128',
             user='root',
             password='123456789cJ.',
             db='demo_database',

@@ -1,3 +1,6 @@
+# -*- coding:utf-8 -*-
+# celery -A tasks worker --loglevel=info -P eventlet
+# celery -A tasks beat
 from celery import Celery
 from zhiHuHot import *
 from celery.schedules import crontab
@@ -10,9 +13,9 @@ app = Celery('tasks', broker=brokers, backend=backend)
 # app.config_from_object('celery_config')
 app.conf.beat_schedule = {
     "task_10s": {
-        "task": "tasks.zhihu_task",
-        "schedule": crontab(hour=21),
-        # "args": (10, 10)
+        "task": "tasks.add",
+        "schedule": 30,
+        "args": (10, 10)
     }
 }
 

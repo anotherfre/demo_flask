@@ -10,8 +10,8 @@ app = Celery('tasks', broker=brokers, backend=backend)
 # app.config_from_object('celery_config')
 app.conf.beat_schedule = {
     "task_10s": {
-        "task": "tasks.add",
-        "schedule": crontab(minute=1),
+        "task": "tasks.zhihu_task",
+        "schedule": crontab(hour=20),
         # "args": (10, 10)
     }
 }

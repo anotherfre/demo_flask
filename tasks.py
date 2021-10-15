@@ -18,7 +18,7 @@ app.conf.beat_schedule = {
     "celery_task": {
         "task": "tasks.zhihu_task",
         "schedule": crontab(hour="4,16", minute=30),
-        "args": (10, 10)
+        # "args": (10, 10)
     }
 }
 

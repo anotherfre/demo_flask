@@ -3,18 +3,17 @@ import requests
 from lxml import etree
 import pymysql
 import datetime
-from .spider_config import *
-
-conn = pymysql.connect(host=HOST,
-                       user=USER,
-                       password=PASSWORD,
-                       database=DATABASE,
-                       charset='utf8',
-                       port=PORT)
+from spider_config import *
 
 
 class ZhihuHot:
     def __init__(self):
+        self.conn = pymysql.connect(host=HOST,
+                                    user=USER,
+                                    password=PASSWORD,
+                                    database=DATABASE,
+                                    charset='utf8',
+                                    port=PORT)
         self.url = 'https://www.zhihu.com/hot'
         self.headers = {
             'user-agent': user_agent,
@@ -50,13 +49,15 @@ class ZhihuHot:
         create_time = datetime.datetime.utcnow()
         try:
             for data in items:
-                with conn.cursor() as cursor:
+                with self.conn.cursor() as cursor:
                     sql = '''insert into zhihu_hot(title, title_url, create_time, del_flag) values(%s,%s,%s,%s)'''
                     cursor.execute(sql, (data['title'], data['url'], create_time, 0))
-                    conn.commit()
+                    self.conn.commit()
+            return True
         except Exception as e:
             print(e)
-            conn.rollback()
+            self.conn.rollback()
+            return False
 
 
 if __name__ == '__main__':

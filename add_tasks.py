@@ -20,9 +20,9 @@ sign = add.s()
 result = sign.delay(3, 2)
 print(result)
 
-
 # group
 from celery import group
+
 result = []
 for i in range(10):
     result.append(add.s(i, i))

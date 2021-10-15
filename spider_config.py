@@ -1,4 +1,4 @@
-HOST = '192.168.11.128'
+HOST = '192.168.76.128'
 DATABASE = 'demo_database'
 USER = 'root'
 PASSWORD = '123456789cJ.'

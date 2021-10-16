@@ -40,8 +40,9 @@ class ZhihuHot:
         for index, data in enumerate(query_list):
             item_title = data.xpath(".//h2[@class='HotItem-title']/text()")[0]
             item_url = data.xpath(".//a/@href")[0]
+            item_hot = data.xpath("./div/text()")[0]
             item_title = str(index) + ':' + item_title
-            hot_dict = {'title': item_title, 'url': item_url}
+            hot_dict = {'title': item_title, 'url': item_url, 'hot': item_hot}
             hot_list.append(hot_dict)
         return hot_list
 
@@ -50,8 +51,8 @@ class ZhihuHot:
         try:
             for data in items:
                 with self.conn.cursor() as cursor:
-                    sql = '''insert into zhihu_hot(title, title_url, create_time, del_flag) values(%s,%s,%s,%s)'''
-                    cursor.execute(sql, (data['title'], data['url'], create_time, 0))
+                    sql = '''insert into zhihu_hot(title, hot, title_url, create_time, del_flag) values(%s,%s,%s,%s,%s)'''
+                    cursor.execute(sql, (data['title'], data['hot'], data['url'], create_time, 0))
                     self.conn.commit()
             return True
         except Exception as e:

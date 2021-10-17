@@ -42,13 +42,14 @@ class ZhihuHot:
             item_title = data.xpath(".//h2[@class='HotItem-title']/text()")[0]
             item_url = data.xpath(".//a/@href")[0]
             item_hot = data.xpath("./div/text()")[0]
-            item_hot = re.findall(item_hot, '\d+')
+            item_content = data.xpath(".//p/text()")[0] if data.xpath(".//p/text()") else ""
+            item_hot = re.findall(r'\d+', item_hot)
             if item_hot:
-                hot = int(item_hot)
+                hot = int(item_hot[0])
             else:
                 hot = 0
             item_title = str(index) + ':' + item_title
-            hot_dict = {'title': item_title, 'url': item_url, 'hot': hot}
+            hot_dict = {'title': item_title, 'url': item_url, 'hot': hot, "item_content": item_content}
             hot_list.append(hot_dict)
         return hot_list
 
@@ -57,8 +58,8 @@ class ZhihuHot:
         try:
             for data in items:
                 with self.conn.cursor() as cursor:
-                    sql = '''insert into zhihu_hot(title, hot, title_url, create_time, del_flag) values(%s,%s,%s,%s,%s)'''
-                    cursor.execute(sql, (data['title'], data['hot'], data['url'], create_time, 0))
+                    sql = '''insert into zhihu_hot(title, hot, title_url, create_time, del_flag, content) values(%s,%s,%s,%s,%s,%s)'''
+                    cursor.execute(sql, (data['title'], data['hot'], data['url'], create_time, 0, data['item_content']))
                     self.conn.commit()
             return True
         except Exception as e:
@@ -71,4 +72,6 @@ if __name__ == '__main__':
     zhihu = ZhihuHot()
     html = zhihu.download_item()
     items = zhihu.clear_item(html)
-    zhihu.save_item(items)
+    for item in items:
+        print(item)
+    # zhihu.save_item(items)

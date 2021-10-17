@@ -4,6 +4,7 @@ from lxml import etree
 import pymysql
 import datetime
 from spider_config import *
+import re
 
 
 class ZhihuHot:
@@ -41,8 +42,13 @@ class ZhihuHot:
             item_title = data.xpath(".//h2[@class='HotItem-title']/text()")[0]
             item_url = data.xpath(".//a/@href")[0]
             item_hot = data.xpath("./div/text()")[0]
+            item_hot = re.findall(item_hot, '\d+')
+            if item_hot:
+                hot = int(item_hot)
+            else:
+                hot = 0
             item_title = str(index) + ':' + item_title
-            hot_dict = {'title': item_title, 'url': item_url, 'hot': item_hot}
+            hot_dict = {'title': item_title, 'url': item_url, 'hot': hot}
             hot_list.append(hot_dict)
         return hot_list
 

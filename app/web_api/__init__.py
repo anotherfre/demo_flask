@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import re
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, session
 import json
 import pymysql
 import traceback
@@ -17,11 +17,9 @@ conn_pool = PooledDB(
     blocking=True,
     maxusage=None,
     ping=0,
-    # host='39.97.106.192',
-    host='192.168.76.128',
+    host='192.168.184.129',
     user='root',
     password='123456789cJ.',
-    # db='remote_databases',
     db='demo_database',
     port=3306,
     charset='utf8',
@@ -40,6 +38,7 @@ def get_connection():
 from app.web_api import main_index
 from app.web_api import wei_xin_api
 from app.web_api import celery_task
+from app.web_api import user_content
 
 
 def get_str_sha1_secret_str(res):

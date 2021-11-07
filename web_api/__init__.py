@@ -35,10 +35,8 @@ def get_connection():
         return False
 
 
-from app.web_api import main_index
-from app.web_api import wei_xin_api
-from app.web_api import celery_task
-from app.web_api import user_content
+from web_api import wei_xin_api
+from web_api import celery_task, main_index, user_content
 
 
 def get_str_sha1_secret_str(res):

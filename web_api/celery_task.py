@@ -1,4 +1,4 @@
-from app.web_api import *
+from web_api import *
 import redis
 
 

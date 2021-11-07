@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from app.web_api import *
+from web_api import *
 import random
-from app.web_api.gua_data import *
+from web_api.gua_data import *
 import xmltodict
 import requests
 

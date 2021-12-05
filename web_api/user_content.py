@@ -39,7 +39,7 @@ def user_content():
         _user_content = UserContent(request, session, conn)
         result = _user_content.run()
         return result
-    except Exception as e:
+    except:
         return 'error', 500
     finally:
         conn.close()
